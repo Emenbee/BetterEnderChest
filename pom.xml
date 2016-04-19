@@ -73,15 +73,15 @@
 		<dependency>
 			<groupId>org.spigotmc</groupId>
 			<artifactId>spigot-api</artifactId>
-			<version>1.9.2-R0.1-SNAPSHOT</version>
+			<version>1.8.8-R0.1-SNAPSHOT</version>
 			<scope>provided</scope>
 		</dependency>
         <dependency>
-            <groupId>spigot-1.9.2</groupId>
-            <artifactId>spigot-1.9.2</artifactId>
+            <groupId>spigot-1.8.8</groupId>
+            <artifactId>spigot-1.8.8</artifactId>
             <scope>system</scope>
             <version>1.0</version>
-            <systemPath>${basedir}/src/lib/spigot-1.9.2.jar</systemPath>
+            <systemPath>${basedir}/src/lib/spigot-1.8.8.jar</systemPath>
         </dependency>
 		<dependency>
 			<groupId>junit</groupId>

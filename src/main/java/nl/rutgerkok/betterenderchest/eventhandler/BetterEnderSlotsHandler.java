@@ -1,12 +1,9 @@
 package nl.rutgerkok.betterenderchest.eventhandler;
 
-import java.util.Set;
-
 import nl.rutgerkok.betterenderchest.BetterEnderChest;
 import nl.rutgerkok.betterenderchest.BetterEnderInventoryHolder;
 import nl.rutgerkok.betterenderchest.ImmutableInventory;
 import nl.rutgerkok.betterenderchest.Translations;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -21,6 +18,8 @@ import org.bukkit.event.inventory.InventoryType.SlotType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
+
+import java.util.Set;
 
 public class BetterEnderSlotsHandler implements Listener {
     protected final BetterEnderChest plugin;
@@ -115,9 +114,7 @@ public class BetterEnderSlotsHandler implements Listener {
         event.setCancelled(true);
 
         ItemStack adding = event.getCurrentItem();
-
-        // TODO: Testing
-        Bukkit.broadcastMessage("Adding type: " + adding.getType().name());
+        boolean potion = adding.getType().equals(Material.POTION);
 
         // Check for illegal items
         if (!canPlaceStack(adding)) {
@@ -138,9 +135,10 @@ public class BetterEnderSlotsHandler implements Listener {
             // Found a similar slot
 
             // Calculate how many will fit
-            int itemsToAdd = Math.min(inventory.getMaxStackSize(), inSlot.getMaxStackSize()) - inSlot.getAmount();
+            int itemsToAdd = Math.min((potion ? 1 : inventory.getMaxStackSize()), (potion ? 1 :inSlot.getMaxStackSize())) - (potion ? 1 : inSlot.getAmount());
+
             // Limit that by how many we actually have
-            itemsToAdd = Math.min(adding.getAmount(), itemsToAdd);
+            itemsToAdd = Math.min(adding.getAmount(), itemsToAdd);;
 
             // Add that to the slot
             if (itemsToAdd > 0) {

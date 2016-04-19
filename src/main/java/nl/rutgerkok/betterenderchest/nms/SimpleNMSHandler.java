@@ -1,8 +1,7 @@
 package nl.rutgerkok.betterenderchest.nms;
 
 import com.google.common.collect.ImmutableMap;
-import net.minecraft.server.v1_9_R1.*;
-import net.minecraft.server.v1_9_R1.NBTBase.NBTNumber;
+import net.minecraft.server.v1_8_R3.*;
 import nl.rutgerkok.betterenderchest.BetterEnderChest;
 import nl.rutgerkok.betterenderchest.ChestRestrictions;
 import nl.rutgerkok.betterenderchest.WorldGroup;
@@ -10,8 +9,8 @@ import nl.rutgerkok.betterenderchest.chestowner.ChestOwner;
 import nl.rutgerkok.betterenderchest.io.SaveEntry;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.v1_9_R1.CraftWorld;
-import org.bukkit.craftbukkit.v1_9_R1.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
+import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.json.simple.JSONObject;
@@ -153,11 +152,11 @@ public class SimpleNMSHandler extends NMSHandler {
                     objects.add(tagInNBTListToJavaType(listTag, i));
                 }
                 return objects;
-            } else if (tag instanceof NBTNumber) {
+            } else if (tag instanceof NBTBase.NBTNumber) {
                 // Check for whole or fractional number (we don't care about
                 // the difference between int/long or double/float, in JSON
                 // they look the same)
-                NBTNumber nbtNumber = (NBTNumber) tag;
+                NBTBase.NBTNumber nbtNumber = (NBTBase.NBTNumber) tag;
                 if (nbtNumber instanceof NBTTagInt || nbtNumber instanceof NBTTagLong) {
                     // Whole number
                     return nbtNumber.c();
@@ -191,17 +190,19 @@ public class SimpleNMSHandler extends NMSHandler {
          *             If the tag type is unknown.
          */
         private static final Object tagInNBTListToJavaType(NBTTagList tagList, int position) throws IOException {
-            switch (tagList.d()) {
+            switch (/*tagList.d()*/ (int) tagList.d(position)) {
                 case TagType.COMPOUND:
                     NBTTagCompound compoundValue = tagList.get(position);
                     return nbtTagToJavaType(compoundValue);
                 case TagType.INT_ARRAY:
-                    return boxIntegers(tagList.d(position));
+                    // return boxIntegers(tagList.d(position));
+                    return boxIntegers(new int[] { (int) tagList.d(position) });
                 case TagType.DOUBLE:
                     double doubleValue = tagList.e(position);
                     return doubleValue;
                 case TagType.FLOAT:
-                    float floatValue = tagList.f(position);
+                    //float floatValue = tagList.f(position);
+                    float floatValue = tagList.f();
                     return floatValue;
                 case TagType.STRING:
                     String stringValue = tagList.getString(position);
@@ -398,7 +399,7 @@ public class SimpleNMSHandler extends NMSHandler {
             NBTTagCompound item = inventoryTag.get(i);
             int slot = item.getByte("Slot") & 255;
             inventory.setItem(slot,
-                    CraftItemStack.asCraftMirror(net.minecraft.server.v1_9_R1.ItemStack.createStack(item)));
+                    CraftItemStack.asCraftMirror(net.minecraft.server.v1_8_R3.ItemStack.createStack(item)));
         }
 
         // Return the inventory
