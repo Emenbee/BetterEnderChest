@@ -1,14 +1,13 @@
 package nl.rutgerkok.betterenderchest;
 
+import nl.rutgerkok.betterenderchest.importers.InventoryImporter;
+import nl.rutgerkok.betterenderchest.importers.NoneImporter;
+import org.bukkit.World;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import nl.rutgerkok.betterenderchest.importers.InventoryImporter;
-import nl.rutgerkok.betterenderchest.importers.NoneImporter;
-
-import org.bukkit.World;
 
 /**
  * Represents a group of worlds. A player has different Ender Chest inventories

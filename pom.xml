@@ -5,7 +5,7 @@
 	<artifactId>BetterEnderChest</artifactId>
 	<version>2.4.2</version>
 	<name>BetterEnderChest</name>
-	<description>CraftBukkit plugin that adds functionality for both players and admins to the Ender Chest.</description>
+	<description>CraftBukkit plugin that adds functionality for both players and admins to the Ender Chest. (modified by Commander9292 for Emenbee)</description>
 	<url>https://github.com/rutgerkok/BetterEnderChest</url>
 	<repositories>
 		<repository>
@@ -22,26 +22,45 @@
 		</repository>
 	</repositories>
 	<build>
+        <sourceDirectory>src/main/java</sourceDirectory>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>*.yml</include>
+                </includes>
+            </resource>
+        </resources>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.3.2</version>
+				<version>3.3</version>
 				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
+					<source>1.8</source>
+					<target>1.8</target>
 				</configuration>
 			</plugin>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>nl.rutgerkok.betterenderchest.BetterEnderChestPlugin</mainClass>
+                        </manifest>
+                    </archive>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+
+                    <finalName>BetterEnderChest v${project.version}</finalName>
+
+                    <appendAssemblyId>false</appendAssemblyId>
+
+                </configuration>
+            </plugin>
 		</plugins>
-		<resources>
-			<resource>
-				<directory>src/main/resources</directory>
-				<filtering>true</filtering>
-				<includes>
-					<include>plugin.yml</include>
-				</includes>
-			</resource>
-		</resources>
 	</build>
 	<dependencies>
 		<!--
@@ -54,57 +73,16 @@
 		<dependency>
 			<groupId>org.spigotmc</groupId>
 			<artifactId>spigot-api</artifactId>
-			<version>1.9-R0.1-SNAPSHOT</version>
+			<version>1.9.2-R0.1-SNAPSHOT</version>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.spigotmc</groupId>
-			<artifactId>spigot</artifactId>
-			<version>1.9-R0.1-SNAPSHOT</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.yi.acru.bukkit</groupId>
-			<artifactId>Lockette</artifactId>
-			<version>1.7.12</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.griefcraft</groupId>
-			<artifactId>LWC</artifactId>
-			<version>4.3.2</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>nl.rutgerkok</groupId>
-			<artifactId>blocklocker</artifactId>
-			<version>0.1</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>me.drayshak.worldinventories</groupId>
-			<artifactId>WorldInventories</artifactId>
-			<version>1.7.0</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>uk.co.tggl.pluckerpluck.multiinv</groupId>
-			<artifactId>MultiInv</artifactId>
-			<version>3.3.0</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.onarandombox.multiverseinventories</groupId>
-			<artifactId>Multiverse-Inventories</artifactId>
-			<version>2.5</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.bergerkiller.bukkit</groupId>
-			<artifactId>MyWorlds</artifactId>
-			<version>1.67-SNAPSHOT</version>
-			<scope>provided</scope>
-		</dependency>
+        <dependency>
+            <groupId>spigot-1.9.2</groupId>
+            <artifactId>spigot-1.9.2</artifactId>
+            <scope>system</scope>
+            <version>1.0</version>
+            <systemPath>${basedir}/src/lib/spigot-1.9.2.jar</systemPath>
+        </dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>

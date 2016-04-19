@@ -1,15 +1,9 @@
 package nl.rutgerkok.betterenderchest;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-import java.util.logging.Level;
-
+import com.google.common.base.Predicate;
+import com.google.common.base.Predicates;
+import com.google.common.collect.Lists;
 import nl.rutgerkok.betterenderchest.chestowner.ChestOwners;
-import nl.rutgerkok.betterenderchest.chestprotection.BlockLockerBridge;
-import nl.rutgerkok.betterenderchest.chestprotection.LWCBridge;
-import nl.rutgerkok.betterenderchest.chestprotection.LocketteBridge;
 import nl.rutgerkok.betterenderchest.chestprotection.NoBridge;
 import nl.rutgerkok.betterenderchest.chestprotection.ProtectionBridge;
 import nl.rutgerkok.betterenderchest.command.BaseCommand;
@@ -17,15 +11,7 @@ import nl.rutgerkok.betterenderchest.command.BetterEnderCommandManager;
 import nl.rutgerkok.betterenderchest.command.EnderChestCommand;
 import nl.rutgerkok.betterenderchest.eventhandler.BetterEnderEventHandler;
 import nl.rutgerkok.betterenderchest.eventhandler.BetterEnderSlotsHandler;
-import nl.rutgerkok.betterenderchest.importers.BetterEnderFlatFileImporter;
-import nl.rutgerkok.betterenderchest.importers.BetterEnderMySQLImporter;
-import nl.rutgerkok.betterenderchest.importers.InventoryImporter;
-import nl.rutgerkok.betterenderchest.importers.MultiInvImporter;
-import nl.rutgerkok.betterenderchest.importers.MultiverseInventoriesImporter;
-import nl.rutgerkok.betterenderchest.importers.MyWorldsImporter;
-import nl.rutgerkok.betterenderchest.importers.NoneImporter;
-import nl.rutgerkok.betterenderchest.importers.VanillaImporter;
-import nl.rutgerkok.betterenderchest.importers.WorldInventoriesImporter;
+import nl.rutgerkok.betterenderchest.importers.*;
 import nl.rutgerkok.betterenderchest.io.BetterEnderCache;
 import nl.rutgerkok.betterenderchest.io.DiscardingEnderCache;
 import nl.rutgerkok.betterenderchest.io.SaveAndLoadError;
@@ -38,7 +24,6 @@ import nl.rutgerkok.betterenderchest.nms.NMSHandler;
 import nl.rutgerkok.betterenderchest.nms.SimpleNMSHandler;
 import nl.rutgerkok.betterenderchest.registry.Registry;
 import nl.rutgerkok.betterenderchest.util.BukkitExecutors;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -51,9 +36,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.google.common.base.Predicate;
-import com.google.common.base.Predicates;
-import com.google.common.collect.Lists;
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
 
 public class BetterEnderChestPlugin extends JavaPlugin implements BetterEnderChest {
     /**
@@ -481,17 +468,10 @@ public class BetterEnderChestPlugin extends JavaPlugin implements BetterEnderChe
         chestSaveLocation = new File(getDataFolder(), "chestData");
 
         // ProtectionBridge
-        protectionBridges.register(new LocketteBridge());
-        protectionBridges.register(new LWCBridge(this));
-        protectionBridges.register(new BlockLockerBridge(this));
         protectionBridges.register(new NoBridge());
         protectionBridges.selectAvailableRegistration();
 
         // Converter
-        importers.register(new MultiInvImporter());
-        importers.register(new MultiverseInventoriesImporter());
-        importers.register(new WorldInventoriesImporter());
-        importers.register(new MyWorldsImporter());
         importers.register(new BetterEnderFlatFileImporter(this));
         importers.register(new BetterEnderMySQLImporter());
         importers.register(new NoneImporter());

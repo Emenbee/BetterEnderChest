@@ -3,13 +3,6 @@ main: nl.rutgerkok.betterenderchest.BetterEnderChestPlugin
 description: 'Secure and configurable Ender Chests'
 version: '${project.version}'
 author: 'Rutger Kok'
-softdepend:
-- 'Lockette'
-- 'LWC'
-- 'Multiverse-Inventories'
-- 'MultiInv'
-- 'My Worlds'
-- 'WorldInventories'
 commands:
   betterenderchest:
     description: Administrative command for BetterEnderChest

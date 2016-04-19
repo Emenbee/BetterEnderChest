@@ -116,6 +116,9 @@ public class BetterEnderSlotsHandler implements Listener {
 
         ItemStack adding = event.getCurrentItem();
 
+        // TODO: Testing
+        Bukkit.broadcastMessage("Adding type: " + adding.getType().name());
+
         // Check for illegal items
         if (!canPlaceStack(adding)) {
             sendInvalidItemMessage(event.getWhoClicked());

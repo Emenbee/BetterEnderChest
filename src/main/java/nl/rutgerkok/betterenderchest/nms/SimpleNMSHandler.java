@@ -1,22 +1,13 @@
 package nl.rutgerkok.betterenderchest.nms;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
+import com.google.common.collect.ImmutableMap;
+import net.minecraft.server.v1_9_R1.*;
+import net.minecraft.server.v1_9_R1.NBTBase.NBTNumber;
 import nl.rutgerkok.betterenderchest.BetterEnderChest;
 import nl.rutgerkok.betterenderchest.ChestRestrictions;
 import nl.rutgerkok.betterenderchest.WorldGroup;
 import nl.rutgerkok.betterenderchest.chestowner.ChestOwner;
 import nl.rutgerkok.betterenderchest.io.SaveEntry;
-
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_9_R1.CraftWorld;
@@ -26,23 +17,12 @@ import org.bukkit.inventory.ItemStack;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-import com.google.common.collect.ImmutableMap;
-
-import net.minecraft.server.v1_9_R1.BlockPosition;
-import net.minecraft.server.v1_9_R1.MinecraftServer;
-import net.minecraft.server.v1_9_R1.NBTBase;
-import net.minecraft.server.v1_9_R1.NBTBase.NBTNumber;
-import net.minecraft.server.v1_9_R1.NBTCompressedStreamTools;
-import net.minecraft.server.v1_9_R1.NBTTagByteArray;
-import net.minecraft.server.v1_9_R1.NBTTagCompound;
-import net.minecraft.server.v1_9_R1.NBTTagDouble;
-import net.minecraft.server.v1_9_R1.NBTTagInt;
-import net.minecraft.server.v1_9_R1.NBTTagIntArray;
-import net.minecraft.server.v1_9_R1.NBTTagList;
-import net.minecraft.server.v1_9_R1.NBTTagLong;
-import net.minecraft.server.v1_9_R1.NBTTagString;
-import net.minecraft.server.v1_9_R1.TileEntity;
-import net.minecraft.server.v1_9_R1.TileEntityEnderChest;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.*;
+import java.util.Map.Entry;
 
 public class SimpleNMSHandler extends NMSHandler {
     static class JSONSimpleTypes {

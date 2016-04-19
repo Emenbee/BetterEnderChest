@@ -1,8 +1,8 @@
 package nl.rutgerkok.betterenderchest;
 
-import java.lang.reflect.Field;
-
 import org.bukkit.configuration.file.YamlConfiguration;
+
+import java.lang.reflect.Field;
 
 public class Translations {
     public static Translation CAN_ONLY_OPEN_OWN_CHEST = new Translation("You can only open your own Ender Chest.");
